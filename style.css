@@ -1,0 +1,619 @@
+/* ==========================================================================
+   Task Manager - red & gray theme
+   Shared by: login.php, register.php, user.php, admin.php
+   Fonts load from Google Fonts; if offline, the fallback stacks are used.
+   ========================================================================== */
+@import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600&display=swap");
+
+/* --------------------------------------------------------------------------
+   1. Design tokens
+   -------------------------------------------------------------------------- */
+:root {
+    /* Red */
+    --red-900: #6e0918;
+    --red-700: #a30d24;
+    --red-600: #c8102e;   /* primary */
+    --red-500: #e0374f;
+    --red-100: #f9d6db;
+    --red-50:  #fdf0f2;
+
+    /* Gray */
+    --gray-950: #1a1c1f;
+    --gray-900: #25282c;  /* top bar, body text */
+    --gray-800: #33373c;
+    --gray-700: #4a4f56;
+    --gray-600: #5f656d;  /* muted text */
+    --gray-400: #9ca2aa;
+    --gray-300: #cdd1d6;  /* borders */
+    --gray-200: #e2e4e7;
+    --gray-100: #f0f1f3;  /* page background */
+    --gray-50:  #f8f9fa;
+    --white:    #ffffff;
+
+    /* Type */
+    --font-display: "Barlow Condensed", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+    --font-body: "Barlow", "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+
+    /* Shape */
+    --radius: 6px;
+    --shadow: 0 1px 2px rgba(26, 28, 31, 0.08), 0 6px 16px rgba(26, 28, 31, 0.08);
+}
+
+/* --------------------------------------------------------------------------
+   2. Base
+   -------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.55;
+    color: var(--gray-900);
+    background: var(--gray-100);
+}
+
+h1,
+h2,
+h3 {
+    margin: 0 0 0.75rem;
+    font-family: var(--font-display);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: 0.01em;
+    color: var(--gray-900);
+}
+
+h1 { font-size: 2.4rem; }
+h2 { font-size: 1.6rem; }
+
+a {
+    color: var(--red-600);
+    text-underline-offset: 3px;
+}
+
+a:hover {
+    color: var(--red-900);
+}
+
+:focus-visible {
+    outline: 3px solid var(--red-500);
+    outline-offset: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   3. Brand mark (red square with a check)
+   -------------------------------------------------------------------------- */
+.brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    color: var(--white);
+    text-decoration: none;
+}
+
+.brand__mark {
+    position: relative;
+    display: inline-block;
+    flex: none;
+    width: 1.5rem;
+    height: 1.5rem;
+    background: var(--red-600);
+    border-radius: 4px;
+}
+
+.brand__mark::after {
+    content: "";
+    position: absolute;
+    left: 0.5rem;
+    top: 0.2rem;
+    width: 0.4rem;
+    height: 0.75rem;
+    border: solid var(--white);
+    border-width: 0 0.18rem 0.18rem 0;
+    transform: rotate(45deg);
+}
+
+/* Light version, used on the red login panel */
+.brand__mark--light {
+    background: var(--white);
+}
+
+.brand__mark--light::after {
+    border-color: var(--red-600);
+}
+
+/* --------------------------------------------------------------------------
+   4. Top bar & navigation (user.php, admin.php)
+   -------------------------------------------------------------------------- */
+.topbar {
+    background: var(--gray-900);
+    border-bottom: 4px solid var(--red-600);
+}
+
+.topbar__inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem 1.5rem;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0.85rem 1.25rem;
+}
+
+.nav {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.nav__link {
+    padding: 0.4rem 0.8rem;
+    border-radius: var(--radius);
+    font-weight: 500;
+    color: var(--gray-300);
+    text-decoration: none;
+    transition: background-color 0.15s, color 0.15s;
+}
+
+.nav__link:hover {
+    color: var(--white);
+    background: var(--gray-800);
+}
+
+.nav__link.is-active {
+    color: var(--white);
+    background: var(--gray-700);
+}
+
+.nav__link--accent {
+    color: var(--white);
+    background: var(--red-600);
+}
+
+.nav__link--accent:hover {
+    color: var(--white);
+    background: var(--red-700);
+}
+
+/* --------------------------------------------------------------------------
+   5. Page layout & cards
+   -------------------------------------------------------------------------- */
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 2rem 1.25rem 3rem;
+}
+
+.page-header {
+    margin-bottom: 1.5rem;
+}
+
+.page-header h1 {
+    margin: 0;
+}
+
+.card {
+    margin-bottom: 1.5rem;
+    padding: 1.5rem;
+    background: var(--white);
+    border: 1px solid var(--gray-300);
+    border-radius: var(--radius);
+}
+
+.card__title {
+    margin-bottom: 1.25rem;
+    padding-left: 0.75rem;
+    border-left: 4px solid var(--red-600);
+}
+
+/* --------------------------------------------------------------------------
+   6. Alerts
+   -------------------------------------------------------------------------- */
+.alert {
+    margin: 0 0 1.5rem;
+    padding: 0.75rem 1rem;
+    font-weight: 600;
+    color: var(--gray-900);
+    background: var(--gray-200);
+    border-left: 4px solid var(--gray-700);
+    border-radius: 0 var(--radius) var(--radius) 0;
+}
+
+.alert--error {
+    color: var(--red-900);
+    background: var(--red-50);
+    border-left-color: var(--red-600);
+}
+
+.alert--success {
+    color: var(--gray-900);
+    background: var(--gray-200);
+    border-left-color: var(--gray-900);
+}
+
+/* --------------------------------------------------------------------------
+   7. Forms
+   -------------------------------------------------------------------------- */
+.field {
+    display: block;
+    margin-bottom: 1.1rem;
+}
+
+.field__label {
+    display: block;
+    margin-bottom: 0.35rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--gray-800);
+}
+
+.field__hint {
+    font-weight: 400;
+    color: var(--gray-600);
+}
+
+.input,
+.textarea,
+.select {
+    width: 100%;
+    padding: 0.65rem 0.8rem;
+    font: inherit;
+    color: var(--gray-900);
+    background: var(--white);
+    border: 1px solid var(--gray-400);
+    border-radius: var(--radius);
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.textarea {
+    resize: vertical;
+    max-width: 100%;
+}
+
+.input:focus,
+.textarea:focus,
+.select:focus {
+    outline: none;
+    border-color: var(--red-600);
+    box-shadow: 0 0 0 3px var(--red-100);
+}
+
+.form--narrow {
+    max-width: 480px;
+}
+
+/* Horizontal form (admin "Create New User") */
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 1rem;
+}
+
+.form-row__field {
+    flex: 1 1 180px;
+    margin: 0;
+}
+
+.form-row__field--narrow {
+    flex: 0 1 140px;
+}
+
+.form__foot {
+    margin: 1.5rem 0 0;
+    font-size: 0.95rem;
+    color: var(--gray-600);
+}
+
+/* --------------------------------------------------------------------------
+   8. Buttons
+   -------------------------------------------------------------------------- */
+.btn {
+    display: inline-block;
+    padding: 0.7rem 1.4rem;
+    font: 600 1rem/1.2 var(--font-body);
+    color: var(--white);
+    background: var(--red-600);
+    border: 0;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: background-color 0.15s;
+}
+
+.btn:hover {
+    background: var(--red-700);
+}
+
+.btn:active {
+    background: var(--red-900);
+}
+
+.btn--block {
+    width: 100%;
+}
+
+/* Task status toggle: pending = red outline, completed = quiet gray */
+.status-btn {
+    padding: 0.45rem 0.85rem;
+    font: 600 0.85rem/1.2 var(--font-body);
+    white-space: nowrap;
+    color: var(--red-700);
+    background: var(--white);
+    border: 2px solid var(--red-600);
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background-color 0.15s;
+}
+
+.status-btn:hover {
+    background: var(--red-50);
+}
+
+.status-btn--done {
+    color: var(--gray-700);
+    background: var(--gray-200);
+    border-color: var(--gray-400);
+}
+
+.status-btn--done:hover {
+    background: var(--gray-300);
+}
+
+.link-danger {
+    display: inline-block;
+    padding: 0.3rem 0.65rem;
+    font-weight: 600;
+    color: var(--red-700);
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.15s;
+}
+
+.link-danger:hover {
+    color: var(--red-900);
+    background: var(--red-50);
+}
+
+/* --------------------------------------------------------------------------
+   9. Tables
+   -------------------------------------------------------------------------- */
+.table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--gray-300);
+    border-radius: var(--radius);
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--white);
+}
+
+.table th,
+.table td {
+    padding: 0.8rem 1rem;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.table th {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--gray-700);
+    background: var(--gray-200);
+    border-bottom: 2px solid var(--gray-400);
+}
+
+.table td {
+    border-bottom: 1px solid var(--gray-200);
+}
+
+.table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.table tbody tr:hover {
+    background: var(--gray-50);
+}
+
+.table__center {
+    text-align: center;
+}
+
+.table__narrow {
+    width: 1%;
+    white-space: nowrap;
+}
+
+.table__empty {
+    padding: 2rem 1rem;
+    text-align: center;
+    color: var(--gray-600);
+}
+
+/* Task rows */
+.task__title {
+    font-weight: 600;
+    overflow-wrap: anywhere;
+}
+
+.task__desc {
+    margin: 0.3rem 0 0;
+    font-size: 0.9rem;
+    color: var(--gray-600);
+    overflow-wrap: anywhere;
+}
+
+.task-row.is-done {
+    color: var(--gray-600);
+    background: var(--gray-50);
+}
+
+.task-row.is-done .task__title {
+    text-decoration: line-through;
+}
+
+/* Role select inside the users table */
+.select--inline {
+    width: auto;
+    padding: 0.35rem 0.6rem;
+}
+
+.select--admin {
+    font-weight: 600;
+    color: var(--red-700);
+    border-color: var(--red-600);
+}
+
+/* --------------------------------------------------------------------------
+   10. Login / register screens
+   -------------------------------------------------------------------------- */
+.auth-page {
+    display: grid;
+    place-items: center;
+    min-height: 100vh;
+    padding: 1.5rem;
+    background: var(--gray-200);
+}
+
+.auth {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    max-width: 860px;
+    overflow: hidden;
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+.auth__brand {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    min-height: 400px;
+    padding: 2.5rem 2rem;
+    overflow: hidden;
+    color: var(--white);
+    background: var(--red-600);
+}
+
+/* Diagonal stripes on the red panel */
+.auth__brand::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        135deg,
+        transparent 0 26px,
+        rgba(110, 9, 24, 0.22) 26px 52px
+    );
+}
+
+/* Gray wedge in the corner */
+.auth__brand::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 55%;
+    height: 38%;
+    background: var(--gray-900);
+    clip-path: polygon(35% 0, 100% 0, 100% 100%);
+}
+
+.auth__brand > * {
+    position: relative;
+    z-index: 1;
+}
+
+.auth__brand .brand__mark {
+    width: 2.5rem;
+    height: 2.5rem;
+    margin-bottom: 0.75rem;
+    border-radius: 6px;
+}
+
+.auth__brand .brand__mark::after {
+    left: 0.85rem;
+    top: 0.35rem;
+    width: 0.7rem;
+    height: 1.3rem;
+    border-width: 0 0.3rem 0.3rem 0;
+}
+
+.auth__title {
+    margin: 0;
+    font-size: 3.2rem;
+    color: var(--white);
+}
+
+.auth__tagline {
+    margin: 0;
+    max-width: 22ch;
+    font-size: 1.05rem;
+    color: var(--red-100);
+}
+
+.auth__panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2.5rem 2.25rem;
+}
+
+/* --------------------------------------------------------------------------
+   11. Responsive
+   -------------------------------------------------------------------------- */
+@media (max-width: 720px) {
+    h1 { font-size: 2rem; }
+
+    .auth {
+        grid-template-columns: 1fr;
+    }
+
+    .auth__brand {
+        min-height: 0;
+        padding: 1.75rem 1.5rem;
+    }
+
+    .auth__title {
+        font-size: 2.4rem;
+    }
+
+    .auth__panel {
+        padding: 1.75rem 1.5rem 2rem;
+    }
+
+    .card {
+        padding: 1.15rem;
+    }
+
+    .form-row__field,
+    .form-row__field--narrow {
+        flex: 1 1 100%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
+    }
+}
